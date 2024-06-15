@@ -14,7 +14,6 @@ public class CompanyClientConfiguration : IEntityTypeConfiguration<CompanyClient
         
         builder
             .Property(x => x.IdClient)
-            .ValueGeneratedOnAdd()
             .IsRequired();
         
         builder

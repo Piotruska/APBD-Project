@@ -13,7 +13,6 @@ public class IndividualClientConfiguration : IEntityTypeConfiguration<Individual
         
         builder
             .Property(x => x.IdClient)
-            .ValueGeneratedOnAdd()
             .IsRequired();
         
         builder

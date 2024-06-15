@@ -17,10 +17,10 @@ public class RRConext : DbContext
     }
 
     public DbSet<Client> Clients { get; set; }
-    public DbSet<IndividualClient> CompanyClients { get; set; }
+    public DbSet<CompanyClient> CompanyClients { get; set; }
     public DbSet<Contract> Contracts { get; set; }
     public DbSet<Discount> Discounts { get; set; }
-    public DbSet<CompanyClient> IndividualClients { get; set; }
+    public DbSet<IndividualClient> IndividualClients { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Subscription> Subscriptions { get; set; }
