@@ -6,5 +6,5 @@ public class CompanyClient
     public string ComapnyName { get; set; }
     public string KRS { get; set; }
     
-    public Client Client { get; set; }
+    public virtual Client Client { get; set; }
 }

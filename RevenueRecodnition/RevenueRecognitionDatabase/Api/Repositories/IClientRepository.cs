@@ -6,8 +6,10 @@ namespace RevenueRecodnition.Api.Repositories;
 
 public interface IClientRepository
 {
-    public Task<Client?> GetAllClientWithSoftDeletedAsync(int clientId);
-    public Task<Client?> GetAllClientWithoutSoftDeletedAsync(int clientId);
+    public Task<Client?> GetClientWithSoftDeletedAsync(int clientId);
+    public Task<Client?> GetClientWithoutSoftDeletedAsync(int clientId);
+    public Task<Client?> GetClientWithSoftDeletedAllInfoAsync(int clientId);
+    public Task<Client?> GetClientWithoutSoftDeletedAllInfoAsync(int clientId);
     public Task AddClientAsync(Client Client);
     public Task AddIndividualClientAsync(IndividualClient individualClient);
     public Task AddCompanyClientAsync(CompanyClient companyClient);

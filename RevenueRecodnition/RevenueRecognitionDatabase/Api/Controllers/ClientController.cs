@@ -30,17 +30,17 @@ public class ClientController : ControllerBase
         return NoContent();
     }
     
-    [HttpPut("/Company/{IndividualClientId:int}")]
-    public async Task<IActionResult> UpdateIndividualCLientAsync(UpdateIndividualClientDTO dto,int IndividualClientId)
+    [HttpPut("/Company/{CompanyClientId:int}")]
+    public async Task<IActionResult> UpdateCompanyClientAsync(UpdateCompanyClientDto dto,int CompanyClientId)
     {
-        await _service.UpdateIndividualCLientAsync(dto,IndividualClientId);
+        await _service.UpdateCompanyClientAsync(dto,CompanyClientId);
         return NoContent();
     }
     
-    [HttpPut("/Individual/{ConapnyClientId:int}")]
-    public async Task<IActionResult> UpdateCompanyClientAsync(UpdateCompanyClientDto dto,int ConapnyClientId)
+    [HttpPut("/Individual/{IndividualClientId:int}")]
+    public async Task<IActionResult> UpdateIndividualCLientAsync(UpdateIndividualClientDTO dto,int IndividualClientId)
     {
-        await _service.UpdateCompanyClientAsync(dto,ConapnyClientId);
+        await _service.UpdateIndividualCLientAsync(dto,IndividualClientId);
         return NoContent();
     }
     

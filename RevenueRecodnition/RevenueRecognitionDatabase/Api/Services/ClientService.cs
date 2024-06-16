@@ -78,23 +78,27 @@ public class ClientService : IClientService
     }
     public async Task UpdateIndividualCLientAsync(UpdateIndividualClientDTO dto, int clientId)
     {
-        Client? clientToUpdate = await _clientRepository.GetAllClientWithSoftDeletedAsync(clientId);
+        Client? clientToUpdate = await _clientRepository.GetClientWithSoftDeletedAsync(clientId);
         EnsureClientExists(clientToUpdate);
+        clientToUpdate = await _clientRepository.GetClientWithSoftDeletedAllInfoAsync(clientId);
         EnsureClientIsNotSoftDeleted(clientToUpdate);
+        EnsureClientIsIndividual(clientToUpdate);
         await _clientRepository.UpdateIndividualCLientAsync(dto, clientId);
     }
 
     public async Task UpdateCompanyClientAsync(UpdateCompanyClientDto dto, int clientId)
     {
-        Client? clientToUpdate = await _clientRepository.GetAllClientWithSoftDeletedAsync(clientId);
+        Client? clientToUpdate = await _clientRepository.GetClientWithSoftDeletedAsync(clientId);
         EnsureClientExists(clientToUpdate);
+        clientToUpdate = await _clientRepository.GetClientWithSoftDeletedAllInfoAsync(clientId);
         EnsureClientIsNotSoftDeleted(clientToUpdate);
+        EnsureClientIsCompany(clientToUpdate);
         await _clientRepository.UpdateCompanyClientAsync(dto, clientId);
     }
 
     public async Task SoftDeleteIndividualCLientAsync(int clientId)
     {
-        Client? clientToUpdate = await _clientRepository.GetAllClientWithoutSoftDeletedAsync(clientId);
+        Client? clientToUpdate = await _clientRepository.GetClientWithoutSoftDeletedAsync(clientId);
         EnsureClientExists(clientToUpdate);
         await _clientRepository.SoftDeleteIndividualCLientAsync(clientId);
     }
@@ -112,6 +116,22 @@ public class ClientService : IClientService
         if (client.IsDeleted)
         {
             throw new NotFoundExeption("Client not found. (SoftDeleted)");
+        }
+    }
+    
+    private void EnsureClientIsIndividual(Client client)
+    {
+        if (client.IndividualClient == null)
+        {
+            throw new BadRequestExeption($"Error : Client {client.IdClient} is an Company Client");
+        }
+    }
+    
+    private void EnsureClientIsCompany(Client client)
+    {
+        if (client.CompanyClient == null)
+        {
+            throw new BadRequestExeption($"Error : Client {client.IdClient} is an Individual Client");
         }
     }
 

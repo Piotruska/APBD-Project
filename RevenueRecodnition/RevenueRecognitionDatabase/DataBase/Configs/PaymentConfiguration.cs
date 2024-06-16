@@ -20,23 +20,31 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
                     .Property(x => x.DatePayed)
                     .IsRequired();
 
+         builder
+             .Property(x => x.Amount)
+             .HasPrecision(10,2)
+             .IsRequired();
+
+         
         builder
             .Property(x => x.IdContract)
-            .IsRequired();
+            .IsRequired(false);
         
         builder
             .Property(x => x.IdSubscription)
-            .IsRequired();
+            .IsRequired(false);
         
         builder
             .HasOne(x => x.Subscription)
             .WithMany(x => x.Payments)
-            .HasForeignKey(x => x.IdSubscription);
+            .HasForeignKey(x => x.IdSubscription)
+            .OnDelete(DeleteBehavior.Restrict);
         
         builder
             .HasOne(x => x.Contract)
             .WithMany(x => x.Payments)
-            .HasForeignKey(x => x.IdContract);
+            .HasForeignKey(x => x.IdContract)
+            .OnDelete(DeleteBehavior.Restrict);
         
         builder
             .ToTable("Payment", "APBDProject");

@@ -9,6 +9,6 @@ public class Product
     public string Category { get; set; }
     public decimal BasePrice { get; set; }
 
-    public ICollection<Contract> Contracts { get; set; }
-    public ICollection<Subscription> Subscriptions { get; set; }
+    public virtual ICollection<Contract> Contracts { get; set; }
+    public virtual ICollection<Subscription> Subscriptions { get; set; }
 }

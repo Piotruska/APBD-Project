@@ -17,14 +17,27 @@ public class ContractConfigfuration : IEntityTypeConfiguration<Contract>
             .IsRequired();
 
         builder
-            .Property(contract => contract.StartDate)
+            .Property(contract => contract.StartDatePayement)
             .IsRequired();
         builder
-            .Property(contract => contract.EndDate)
+            .Property(contract => contract.StartDatePayement)
             .IsRequired();
+        builder
+            .Property(contract => contract.StartDateContract)
+            .IsRequired();
+        builder
+            .Property(contract => contract.StartDateContract)
+            .IsRequired();
+        builder
+            .Property(contract => contract.StartDateSupport)
+            .IsRequired();
+        builder
+            .Property(contract => contract.StartDateSupport)
+            .IsRequired();
+        
         builder
             .Property(contract => contract.Price)
-            .HasPrecision(5,2)
+            .HasPrecision(10,2)
             .IsRequired();
         builder
             .Property(contract => contract.IsSigned)

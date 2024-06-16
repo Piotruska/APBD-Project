@@ -28,15 +28,19 @@ public class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription>
         
         builder
             .Property(x => x.Price)
-            .HasPrecision(5,2)
+            .HasPrecision(10,2)
             .IsRequired();
         
         builder
-            .Property(x => x.StartDate)
+            .Property(x => x.StartDateRenewalPayement)
             .IsRequired();
         
         builder
-            .Property(x => x.EndDate)
+            .Property(x => x.EndDateRenewalPayement)
+            .IsRequired();
+        
+        builder
+            .Property(x => x.Canceled)
             .IsRequired();
         
         builder

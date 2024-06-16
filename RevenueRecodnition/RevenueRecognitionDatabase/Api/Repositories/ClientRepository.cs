@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RevenueRecodnition.Api.Models;
 using RevenueRecodnition.Api.Modls;
 using RevenueRecodnition.DataBase.Context;
@@ -14,20 +15,40 @@ public class ClientRepository : IClientRepository
         _context = context;
     }
 
-    public async Task<Client?> GetAllClientWithSoftDeletedAsync(int clientId)
+    public async Task<Client?> GetClientWithSoftDeletedAsync(int clientId)
     {
         return await _context.Clients.FindAsync(clientId);
     }
-
-    public async Task<Client?> GetAllClientWithoutSoftDeletedAsync(int clientId)
+    
+    public async Task<Client?> GetClientWithoutSoftDeletedAsync(int clientId)
     {
-        var client = await _context.Clients.FindAsync(clientId);
-        if (!client.IsDeleted)
-        {
-            return client;
-        }
+        return await _context.Clients
+            .Where(x=>x.IdClient == clientId)
+            .Where(x=>!x.IsDeleted)
+            .FirstOrDefaultAsync();
+    }
 
-        return null;
+    public async Task<Client?> GetClientWithSoftDeletedAllInfoAsync(int clientId)
+    {
+        return await _context.Clients
+            .Include(x => x.IndividualClient)
+            .Include(x => x.CompanyClient)
+            .Include(x => x.Contracts)
+            .Include(x => x.Subscriptions)
+            .FirstAsync(x=>x.IdClient == clientId);
+    }
+
+    public async Task<Client?> GetClientWithoutSoftDeletedAllInfoAsync(int clientId)
+    {
+        return await _context.Clients
+            .Include(x => x.IndividualClient)
+            .Include(x => x.CompanyClient)
+            .Include(x => x.Contracts)
+            .Include(x => x.Subscriptions)
+            .Where(x=>x.IdClient == clientId)
+            .Where(x=>!x.IsDeleted)
+            .FirstOrDefaultAsync();
+        
     }
 
     public async Task AddClientAsync(Client Client)
@@ -50,7 +71,10 @@ public class ClientRepository : IClientRepository
 
     public async Task UpdateIndividualCLientAsync(UpdateIndividualClientDTO dto, int clientId)
     {
-        var clientToUpdate = await _context.Clients.FindAsync(clientId);
+        var clientToUpdate = await _context.Clients
+            .Include(x => x.IndividualClient)
+            .Include(x => x.CompanyClient)
+            .FirstAsync(x =>x.IdClient == clientId);
 
         clientToUpdate.Address = dto.Address;
         clientToUpdate.Email = dto.Email;

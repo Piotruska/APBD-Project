@@ -36,7 +36,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .IsRequired();
         builder
             .Property(x => x.BasePrice)
-            .HasPrecision(5,2)
+            .HasPrecision(10,2)
             .IsRequired();
         
         builder
