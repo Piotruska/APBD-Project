@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RevenueRecodnition.Api.MiddleWares;
+using RevenueRecodnition.Api.Models;
+using RevenueRecodnition.Api.Services;
 
 
 namespace RevenueRecodnition.Api.Controllers;
@@ -8,24 +11,19 @@ namespace RevenueRecodnition.Api.Controllers;
 [Route("api/user")]
 public class UserController : ControllerBase
 {
-    [HttpGet("anonymous")]
-    //[Authorize("", true)] // Allow anonymous access
-    public IActionResult AnonymousEndpoint()
+    private IUserService _service;
+
+    public UserController(IUserService service)
     {
-        return Ok("This is an anonymous endpoint.");
+        _service = service;
     }
 
-    [HttpGet("normal")]
-    //[Authorize("Normal")] // Allow access to normal users
-    public IActionResult NormalUserEndpoint()
-    {
-        return Ok("This endpoint is accessible to normal users.");
-    }
 
-    [HttpGet("admin")]
-    //[Authorize("Admin")] // Allow access to admins
-    public IActionResult AdminEndpoint()
+    [HttpPost("signup")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetAllData(AddUserDTO dto)
     {
-        return Ok("This endpoint is accessible to admins.");
+        await _service.AddNewUserAsync(dto);
+        return Ok();
     }
 }
