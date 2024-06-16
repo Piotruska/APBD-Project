@@ -1,6 +1,6 @@
 namespace RevenueRecodnition.Api.Models;
 
-public class RevenueCalculationRequest
+public class RevenueCalculationRequestDTO
 {
     public string For { get; set; } 
     public int ProductId { get; set; } 

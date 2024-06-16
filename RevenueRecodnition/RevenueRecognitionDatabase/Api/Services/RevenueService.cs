@@ -28,11 +28,11 @@ public class RevenueService : IRevenueService
         _payementRepository = payementRepository;
     }
 
-    public async Task<decimal> CalculateCurrentRevenueAsync(RevenueCalculationRequest request)
+    public async Task<decimal> CalculateCurrentRevenueAsync(RevenueCalculationRequestDTO requestDto)
     {
         decimal totalRevenuePLN = 0M;
     
-        if (request.For == "company")
+        if (requestDto.For == "company")
         {
             var contracts = await _contractRepository.GetListOfSignedContracts();
             foreach (var contract in contracts)
@@ -50,15 +50,15 @@ public class RevenueService : IRevenueService
             }
     
         }
-        else if (request.For == "product" )
+        else if (requestDto.For == "product" )
         {
-            var contracts = await _contractRepository.GetListOfSignedContractsForProduct(request.ProductId);
+            var contracts = await _contractRepository.GetListOfSignedContractsForProduct(requestDto.ProductId);
             foreach (var contract in contracts)
             {
                 totalRevenuePLN  += contract.Price;
             }
             
-            var subscriptions = await _subscriptionRepository.GetListOfSubscriptionsWithPayementsForProductAsync(request.ProductId);
+            var subscriptions = await _subscriptionRepository.GetListOfSubscriptionsWithPayementsForProductAsync(requestDto.ProductId);
             foreach (var subscription in subscriptions)
             {
                 foreach (var payment in subscription.Payments)
@@ -69,23 +69,23 @@ public class RevenueService : IRevenueService
         }
         else
         {
-            throw new BadRequestExeption("Invalid request. for: [company,product]");
+            throw new BadRequestExeption("Invalid requestDto. for: [company,product]");
         }
     
-        if (request.CurrencyCode == "PLN")
+        if (requestDto.CurrencyCode == "PLN")
         {
             return totalRevenuePLN;
         }
     
-        var exchangeRate = await _exchangeRateService.GetExchangeRateAsync(request.CurrencyCode);
+        var exchangeRate = await _exchangeRateService.GetExchangeRateAsync(requestDto.CurrencyCode);
         return totalRevenuePLN * exchangeRate;
     }
     
-    public async Task<decimal> CalculatePredictedRevenueAsync(RevenueCalculationRequest request)
+    public async Task<decimal> CalculatePredictedRevenueAsync(RevenueCalculationRequestDTO requestDto)
     {
         decimal totalRevenuePLN = 0M;
     
-        if (request.For == "company")
+        if (requestDto.For == "company")
         {
             var contracts = await _contractRepository.GetListOfAllContractsNotPastDates();
             foreach (var contract in contracts)
@@ -109,15 +109,15 @@ public class RevenueService : IRevenueService
                 totalRevenuePLN += subscription.Price;
             }
         }
-        else if (request.For == "product")
+        else if (requestDto.For == "product")
         {
-            var contracts = await _contractRepository.GetListOfAllContractsNotPastDatesForProduct(request.ProductId);
+            var contracts = await _contractRepository.GetListOfAllContractsNotPastDatesForProduct(requestDto.ProductId);
             foreach (var contract in contracts)
             {
                 totalRevenuePLN += contract.Price;
             }
             
-            var subscriptions = await _subscriptionRepository.GetListOfSubscriptionsWithPayementsForProductAsync(request.ProductId);
+            var subscriptions = await _subscriptionRepository.GetListOfSubscriptionsWithPayementsForProductAsync(requestDto.ProductId);
             foreach (var subscription in subscriptions)
             {
                 foreach (var payment in subscription.Payments)
@@ -126,7 +126,7 @@ public class RevenueService : IRevenueService
                 }
             }
 
-            var notCanceledSubscription = await _subscriptionRepository.GetListOfSubscriptionsForProductNotCanceledAsync(request.ProductId);
+            var notCanceledSubscription = await _subscriptionRepository.GetListOfSubscriptionsForProductNotCanceledAsync(requestDto.ProductId);
 
             foreach (var subscription in notCanceledSubscription)
             {
@@ -135,15 +135,15 @@ public class RevenueService : IRevenueService
         }
         else
         {
-            throw new BadRequestExeption("Invalid request. for: [company,product]");
+            throw new BadRequestExeption("Invalid requestDto. for: [company,product]");
         }
     
-        if (request.CurrencyCode == "PLN")
+        if (requestDto.CurrencyCode == "PLN")
         {
             return totalRevenuePLN;
         }
     
-        var exchangeRate = await _exchangeRateService.GetExchangeRateAsync(request.CurrencyCode);
+        var exchangeRate = await _exchangeRateService.GetExchangeRateAsync(requestDto.CurrencyCode);
         return totalRevenuePLN * exchangeRate;
     }
     

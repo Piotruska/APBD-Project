@@ -19,17 +19,17 @@ public class RevenueController : ControllerBase
     
     
     [HttpPost("CalculateRevenue")]
-    public async Task<IActionResult> GetCurrentReveniueAsync(RevenueCalculationRequest request)
+    public async Task<IActionResult> GetCurrentReveniueAsync(RevenueCalculationRequestDTO requestDto)
     {
-        var amount = await _service.CalculateCurrentRevenueAsync(request);
-        return Ok(amount + " "+ request.CurrencyCode);
+        var amount = await _service.CalculateCurrentRevenueAsync(requestDto);
+        return Ok(amount + " "+ requestDto.CurrencyCode);
     }
     
     
     [HttpPost("CalculatePrecictedRevenue")]
-    public async Task<IActionResult> GetPredictedRevenueAsync(RevenueCalculationRequest request)
+    public async Task<IActionResult> GetPredictedRevenueAsync(RevenueCalculationRequestDTO requestDto)
     {
-        var amount = await _service.CalculatePredictedRevenueAsync(request);
-        return Ok(amount + " "+ request.CurrencyCode);
+        var amount = await _service.CalculatePredictedRevenueAsync(requestDto);
+        return Ok(amount + " "+ requestDto.CurrencyCode);
     }
 }

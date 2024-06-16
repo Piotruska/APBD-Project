@@ -4,7 +4,7 @@ namespace RevenueRecodnition.Api.Services;
 
 public interface IRevenueService
 {
-    public Task<decimal> CalculateCurrentRevenueAsync(RevenueCalculationRequest request);
+    public Task<decimal> CalculateCurrentRevenueAsync(RevenueCalculationRequestDTO requestDto);
     
-    public Task<decimal> CalculatePredictedRevenueAsync(RevenueCalculationRequest request);
+    public Task<decimal> CalculatePredictedRevenueAsync(RevenueCalculationRequestDTO requestDto);
 }
