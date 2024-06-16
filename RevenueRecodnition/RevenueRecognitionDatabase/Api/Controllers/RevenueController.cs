@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RevenueRecodnition.Api.Models;
 using RevenueRecodnition.Api.Services;
 
 namespace RevenueRecodnition.Api.Controllers;
@@ -13,18 +14,19 @@ public class RevenueController : ControllerBase
     {
         _service = service;
     }
-    
-    [HttpGet]
-    public async Task<IActionResult> GetCurrentReveniueAsync()
+
+    [HttpPost("/CalculateRevenue")]
+
+    public async Task<IActionResult> GetCurrentReveniueAsync(RevenueCalculationRequest request)
     {
-        
-        return NoContent();
+        var amount = await _service.CalculateCurrentRevenueAsync(request);
+        return Ok(amount + " "+ request.CurrencyCode);
     }
     
-    [HttpGet("/predicted")]
-    public async Task<IActionResult> GetPredictedRevenueAsync()
+    [HttpPost("/CalculatePrecictedRevenue")]
+    public async Task<IActionResult> GetPredictedRevenueAsync(RevenueCalculationRequest request)
     {
-        
-        return NoContent();
+        var amount = await _service.CalculatePredictedRevenueAsync(request);
+        return Ok(amount + " "+ request.CurrencyCode);
     }
 }

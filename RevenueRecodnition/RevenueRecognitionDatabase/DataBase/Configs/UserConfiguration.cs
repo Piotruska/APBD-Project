@@ -25,6 +25,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .Property(x => x.Password)
             .HasMaxLength(200)
             .IsRequired();
+        builder
+            .Property(x => x.Type)
+            .HasMaxLength(200)
+            .IsRequired();
         
         builder
             .ToTable("User", "APBDProject");

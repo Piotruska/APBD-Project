@@ -22,6 +22,37 @@ public class ContractRepository : IContracrRepository
             .FirstOrDefaultAsync();
     }
 
+    public async Task<List<Contract>> GetListOfSignedContracts()
+    {
+        var test = await _context.Contracts.FindAsync(1);
+        
+        var list =  await _context.Contracts.
+            Where(x => x.IsSigned)
+            .ToListAsync();
+
+        return list;
+    }
+
+    public async Task<List<Contract>> GetListOfSignedContractsForProduct(int productId)
+    {
+        return await _context.Contracts
+            .Where(x => x.IsSigned && x.IdProduct == productId)
+            .ToListAsync();
+    }
+
+    public async Task<List<Contract>> GetListOfAllContractsNotPastDates()
+    {
+        return await _context.Contracts
+            .Where(x => !(x.EndDatePayement < DateTime.Now) || x.IsSigned).ToListAsync();
+    }
+
+    public async Task<List<Contract>> GetListOfAllContractsNotPastDatesForProduct(int productId)
+    {
+        return await _context.Contracts
+            .Where(x=>x.IdProduct == productId)
+            .Where(x => !(x.EndDatePayement < DateTime.Now) || x.IsSigned).ToListAsync();
+    }
+
     public async Task<int> AddContract(Contract contract)
     {
         await _context.Contracts.AddAsync(contract);

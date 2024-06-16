@@ -8,6 +8,7 @@ namespace RevenueRecodnition.Api.Services;
 
 public class ContractService : IContractService
 {
+    private readonly IExchangeRateService _exchangeRateService;
     private IClientRepository _clientRepository;
     private IContracrRepository _contractRepository;
     private IProductRepository _productRepository;
@@ -15,8 +16,9 @@ public class ContractService : IContractService
     private ISubscriptionRepository _subscriptionRepository;
     private IPayementRepository _payementRepository;
 
-    public ContractService(IClientRepository clientRepository, IContracrRepository contractRepository, IProductRepository productRepository, IDicountRepository dicountRepository, ISubscriptionRepository subscriptionRepository, IPayementRepository payementRepository)
+    public ContractService(IExchangeRateService exchangeRateService,IClientRepository clientRepository, IContracrRepository contractRepository, IProductRepository productRepository, IDicountRepository dicountRepository, ISubscriptionRepository subscriptionRepository, IPayementRepository payementRepository)
     {
+        _exchangeRateService = exchangeRateService;
         _clientRepository = clientRepository;
         _contractRepository = contractRepository;
         _productRepository = productRepository;
@@ -37,7 +39,7 @@ public class ContractService : IContractService
         var discount = GetDiscountCalue(await _dicountRepository.GetCurrentHighestDiscount());
         
 
-        var subscirption = await _subscriptionRepository.GetActiveSubscriptionForProduct(dto.ProductId,dto.ClientId);
+        var subscirption = await _subscriptionRepository.GetActiveSubscriptionForProductAsync(dto.ProductId,dto.ClientId);
         var contract = await _contractRepository.GetActiveContractForProduct(dto.ProductId,dto.ClientId);
         EnsureClientDoseNotHaveASubscriptionOrContractForThisProduct(subscirption,contract);
         
@@ -52,7 +54,7 @@ public class ContractService : IContractService
         //Price and dicount Calculations
         var totalDiscount = discount + IsClientAPreviousClient(client);
         var BasePrice = 1000 * dto.AdditionalSupportTimeInYears + product.BasePrice * dto.ContractLengthInYears;
-        var totalPrice = BasePrice - (BasePrice * totalDiscount);
+        var totalPrice =(decimal) (BasePrice - (BasePrice * totalDiscount)*0.01M);
 
         var contractToAdd = new Contract()
         {
