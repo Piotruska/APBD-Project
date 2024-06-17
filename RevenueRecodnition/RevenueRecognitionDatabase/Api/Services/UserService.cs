@@ -34,6 +34,19 @@ public class UserService : IUserService
         await _userRepository.AddNewUserAsync(userToAdd);
     }
 
+    public async Task RemoveUserAync(string username)
+    {
+        var user = await _userRepository.GetUserAsync(username);
+        EnsureUserExists(user);
+        await _userRepository.DeleteUserAsync(user);
+    }
+    private void EnsureUserExists(User? user)
+    {
+        if (user == null)
+        {
+            throw new BadRequestExeption($"User with username '{user.Username}' dose not exists.");
+        }
+    }
     private void EnsureUsernameDoesNotExist(User? user)
     {
         if (user != null)

@@ -26,4 +26,13 @@ public class UserController : ControllerBase
         await _service.AddNewUserAsync(dto);
         return Ok();
     }
+    
+    [HttpDelete("RemoveUser")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> RemoveUser(string username)
+    {
+        await _service.RemoveUserAync(username);
+        return Ok();
+    }
+
 }

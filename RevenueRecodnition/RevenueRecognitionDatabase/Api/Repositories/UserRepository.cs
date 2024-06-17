@@ -23,4 +23,10 @@ public class UserRepository : IUserRepository
     {
         return await _context.Users.Where(x => x.Username == username).FirstOrDefaultAsync();
     }
+
+    public async Task DeleteUserAsync(User user)
+    {
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+    }
 }

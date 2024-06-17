@@ -6,4 +6,5 @@ namespace RevenueRecodnition.Api.Services;
 public interface IUserService
 {
     public Task AddNewUserAsync(AddUserDTO dto);
+    public Task RemoveUserAync(string username);
 }
