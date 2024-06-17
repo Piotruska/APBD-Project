@@ -21,7 +21,7 @@ public class UserController : ControllerBase
 
     [HttpPost("signup")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetAllData(AddUserDTO dto)
+    public async Task<IActionResult> AddUser(AddUserDTO dto)
     {
         await _service.AddNewUserAsync(dto);
         return Ok();
