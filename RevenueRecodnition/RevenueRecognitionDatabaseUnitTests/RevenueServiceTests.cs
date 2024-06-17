@@ -65,7 +65,7 @@ namespace RevenueRecognitionDatabaseUnitTests
             var result = await _revenueService.CalculateCurrentRevenueAsync(requestDto);
 
             // Assert
-            Assert.AreEqual(4200, result);
+            Assert.That(result,Is.EqualTo(4200));
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace RevenueRecognitionDatabaseUnitTests
             var result = await _revenueService.CalculateCurrentRevenueAsync(requestDto);
 
             // Assert
-            Assert.AreEqual(4200, result);
+            Assert.That(result,Is.EqualTo(4200));
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace RevenueRecognitionDatabaseUnitTests
             var result = await _revenueService.CalculateCurrentRevenueAsync(requestDto);
 
             // Assert
-            Assert.AreEqual(1050, result); // 4200 * 0.25
+            Assert.That(result,Is.EqualTo(1050));  // 4200 * 0.25
         }
 
         [Test]
@@ -187,7 +187,7 @@ namespace RevenueRecognitionDatabaseUnitTests
             var result = await _revenueService.CalculatePredictedRevenueAsync(requestDto);
 
             // Assert
-            Assert.AreEqual(4900, result); // 3000 (contracts) + 1200 (payments) + 700 (not canceled)
+            Assert.That(result,Is.EqualTo(4900)); // 3000 (contracts) + 1200 (payments) + 700 (not canceled)
         }
 
         [Test]
@@ -219,7 +219,7 @@ namespace RevenueRecognitionDatabaseUnitTests
             var result = await _revenueService.CalculatePredictedRevenueAsync(requestDto);
 
             // Assert
-            Assert.AreEqual(4900, result); // 3000 (contracts) + 1200 (payments) + 700 (not canceled)
+            Assert.That(result,Is.EqualTo(4900)); // 3000 (contracts) + 1200 (payments) + 700 (not canceled)
         }
 
         [Test]
@@ -252,7 +252,8 @@ namespace RevenueRecognitionDatabaseUnitTests
             var result = await _revenueService.CalculatePredictedRevenueAsync(requestDto);
 
             // Assert
-            Assert.AreEqual(1225, result); // 4900 * 0.25
+            Assert.That(result,Is.EqualTo(1225));// 5900 * 0.25
+
         }
 
         [Test]
@@ -285,7 +286,7 @@ namespace RevenueRecognitionDatabaseUnitTests
             var result = await _revenueService.CalculatePredictedRevenueAsync(requestDto);
 
             // Assert
-            Assert.AreEqual(1225, result); // 5900 * 0.25
+            Assert.That(result,Is.EqualTo(1225));// 5900 * 0.25
         }
 
         [Test]
