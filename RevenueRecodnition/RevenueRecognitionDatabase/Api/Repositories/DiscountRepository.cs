@@ -18,7 +18,7 @@ public class DiscountRepository : IDicountRepository
     {
         return await _context.Discounts
             .Where(x => x.StartDate <= DateTime.Now && x.EndDate >= DateTime.Now)
-            .OrderBy(x => x.Percentage)
+            .OrderByDescending(x => x.Percentage)
             .FirstOrDefaultAsync();
     }
 }
