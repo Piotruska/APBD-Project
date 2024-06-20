@@ -123,32 +123,32 @@ namespace RevenueRecognitionDatabaseUnitTests
             Assert.AreEqual("Product not found.", ex.Message);
         }
 
-        [Test]
-        public void AddSubscriptionAsync_ThrowsBadRequestExeption_WhenRenewalPeriodIsInvalid()
-        {
-            // Arrange
-            var invalidPeriods = new[] { 0, 25 };
-            foreach (var invalidPeriod in invalidPeriods)
-            {
-                var dto = new AddSubscriptionDTO
-                {
-                    IdClient = 1,
-                    IdProduct = 1,
-                    Name = "Subscription",
-                    RenewalPeriodInMonths = invalidPeriod // Invalid periods
-                };
-
-                var client = new Client { IdClient = dto.IdClient };
-                var product = new Product { IdProduct = dto.IdProduct };
-
-                _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.IdClient)).ReturnsAsync(client);
-                _mockProductRepository.Setup(r => r.GetProductAsync(dto.IdProduct)).ReturnsAsync(product);
-
-                // Act & Assert
-                var ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _subscriptionService.AddSubscriptionAsync(dto));
-                Assert.AreEqual("Renewal period can only be from 1 - 24 months", ex.Message);
-            }
-        }
+        // [Test] //Commented out because in Model (Domain model)
+        // public void AddSubscriptionAsync_ThrowsBadRequestExeption_WhenRenewalPeriodIsInvalid()
+        // {
+        //     // Arrange
+        //     var invalidPeriods = new[] { 0, 25 };
+        //     foreach (var invalidPeriod in invalidPeriods)
+        //     {
+        //         var dto = new AddSubscriptionDTO
+        //         {
+        //             IdClient = 1,
+        //             IdProduct = 1,
+        //             Name = "Subscription",
+        //             RenewalPeriodInMonths = invalidPeriod // Invalid periods
+        //         };
+        //
+        //         var client = new Client { IdClient = dto.IdClient };
+        //         var product = new Product { IdProduct = dto.IdProduct };
+        //
+        //         _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.IdClient)).ReturnsAsync(client);
+        //         _mockProductRepository.Setup(r => r.GetProductAsync(dto.IdProduct)).ReturnsAsync(product);
+        //
+        //         // Act & Assert
+        //         var ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _subscriptionService.AddSubscriptionAsync(dto));
+        //         Assert.AreEqual("Renewal period can only be from 1 - 24 months", ex.Message);
+        //     }
+        //}
 
         [Test]
         public async Task PayForSubscriptionAsync_Success()

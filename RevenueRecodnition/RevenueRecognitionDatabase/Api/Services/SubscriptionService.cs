@@ -36,7 +36,7 @@ public class SubscriptionService : ISubscriptionService
         EnsureClientExists(client);
         var product = await _productRepository.GetProductAsync(dto.IdProduct);
         EnsureProductExists(product);
-        EnsureRenewalPeriodIsInRange(dto.RenewalPeriodInMonths);
+        //EnsureRenewalPeriodIsInRange(dto.RenewalPeriodInMonths); //Commented out because in Model (Domain model)
         var discount = GetDiscountCalue(await _dicountRepository.GetCurrentHighestDiscountAsync());
         
         var subscriptionToAdd = new Subscription()
@@ -110,13 +110,13 @@ public class SubscriptionService : ISubscriptionService
             throw new BadRequestExeption("Incorrect Payement amount");
         }
     }
-    private void EnsureRenewalPeriodIsInRange(int period)
-    {
-        if (period<1 || period>24)
-        {
-            throw new BadRequestExeption("Renewal period can only be from 1 - 24 months");
-        }
-    }
+    // private void EnsureRenewalPeriodIsInRange(int period) //Commented out because in Model (Domain model)
+    // {
+    //     if (period<1 || period>24)
+    //     {
+    //         throw new BadRequestExeption("Renewal period can only be from 1 - 24 months");
+    //     }
+    // }
     private void EnsureClientExists(Client? client)
     {
         if (client == null)

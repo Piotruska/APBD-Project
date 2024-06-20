@@ -137,74 +137,74 @@ namespace RevenueRecognitionDatabaseUnitTests
             Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
         }
 
- [Test]
-        public void CreateContractAsync_ThrowsBadRequestException_WhenAdditionalSupportTimeOutOfRange()
-        {
-            // Arrange
-            var dto = new CreateContractDTO
-            {
-                ClientId = 1,
-                ProductId = 1,
-                ContractLengthInYears = 5,
-                TimePeriodForPayement = 10,
-                AdditionalSupportTimeInYears = 4  // Invalid value (greater than 3)
-            };
+ // [Test] //Commented out because in Model (Domain model)
+ //        public void CreateContractAsync_ThrowsBadRequestException_WhenAdditionalSupportTimeOutOfRange()
+ //        {
+ //            // Arrange
+ //            var dto = new CreateContractDTO
+ //            {
+ //                ClientId = 1,
+ //                ProductId = 1,
+ //                ContractLengthInYears = 5,
+ //                TimePeriodForPayement = 10,
+ //                AdditionalSupportTimeInYears = 4  // Invalid value (greater than 3)
+ //            };
+ //
+ //            var client = new Client { IdClient = dto.ClientId, Contracts = new System.Collections.Generic.List<Contract>(), Subscriptions = new System.Collections.Generic.List<Subscription>() };
+ //            var product = new Product { IdProduct = dto.ProductId, BasePrice = 100 };
+ //
+ //            _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.ClientId)).ReturnsAsync(client);
+ //            _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAllInfoAsync(dto.ClientId)).ReturnsAsync(client);
+ //            _mockProductRepository.Setup(r => r.GetProductAsync(dto.ProductId)).ReturnsAsync(product);
+ //            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionsForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Subscription)null);
+ //            _mockContractRepository.Setup(r => r.GetActiveContractForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Contract)null);
+ //            _mockDiscountRepository.Setup(r => r.GetCurrentHighestDiscountAsync()).ReturnsAsync(new Discount { Percentage = 10 });
+ //
+ //            // Act & Assert
+ //            var ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
+ //            Assert.AreEqual("Support can only be [0,1,2,3] years", ex.Message);
+ //
+ //            // Arrange for value less than 0
+ //            dto.AdditionalSupportTimeInYears = -1;  // Invalid value (less than 0)
+ //
+ //            // Act & Assert
+ //            ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
+ //            Assert.AreEqual("Support can only be [0,1,2,3] years", ex.Message);
+ //        }
 
-            var client = new Client { IdClient = dto.ClientId, Contracts = new System.Collections.Generic.List<Contract>(), Subscriptions = new System.Collections.Generic.List<Subscription>() };
-            var product = new Product { IdProduct = dto.ProductId, BasePrice = 100 };
-
-            _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.ClientId)).ReturnsAsync(client);
-            _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAllInfoAsync(dto.ClientId)).ReturnsAsync(client);
-            _mockProductRepository.Setup(r => r.GetProductAsync(dto.ProductId)).ReturnsAsync(product);
-            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionsForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Subscription)null);
-            _mockContractRepository.Setup(r => r.GetActiveContractForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Contract)null);
-            _mockDiscountRepository.Setup(r => r.GetCurrentHighestDiscountAsync()).ReturnsAsync(new Discount { Percentage = 10 });
-
-            // Act & Assert
-            var ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
-            Assert.AreEqual("Support can only be [0,1,2,3] years", ex.Message);
-
-            // Arrange for value less than 0
-            dto.AdditionalSupportTimeInYears = -1;  // Invalid value (less than 0)
-
-            // Act & Assert
-            ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
-            Assert.AreEqual("Support can only be [0,1,2,3] years", ex.Message);
-        }
-
-        [Test]
-        public void CreateContractAsync_ThrowsBadRequestException_WhenTimePeriodForPayementOutOfRange()
-        {
-            // Arrange
-            var dto = new CreateContractDTO
-            {
-                ClientId = 1,
-                ProductId = 1,
-                ContractLengthInYears = 1,
-                TimePeriodForPayement = 2  // Invalid value (less than 3)
-            };
-
-            var client = new Client { IdClient = dto.ClientId, Contracts = new System.Collections.Generic.List<Contract>(), Subscriptions = new System.Collections.Generic.List<Subscription>() };
-            var product = new Product { IdProduct = dto.ProductId, BasePrice = 100 };
-
-            _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.ClientId)).ReturnsAsync(client);
-            _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAllInfoAsync(dto.ClientId)).ReturnsAsync(client);
-            _mockProductRepository.Setup(r => r.GetProductAsync(dto.ProductId)).ReturnsAsync(product);
-            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionsForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Subscription)null);
-            _mockContractRepository.Setup(r => r.GetActiveContractForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Contract)null);
-            _mockDiscountRepository.Setup(r => r.GetCurrentHighestDiscountAsync()).ReturnsAsync(new Discount { Percentage = 10 });
-
-            // Act & Assert
-            var ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
-            Assert.AreEqual("TimePeriod cannot be less then 3 or larger then 30", ex.Message);
-
-            // Arrange for value greater than 30
-            dto.TimePeriodForPayement = 31;  // Invalid value (greater than 30)
-
-            // Act & Assert
-            ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
-            Assert.AreEqual("TimePeriod cannot be less then 3 or larger then 30", ex.Message);
-        }
+        // [Test] //Commented out because in Model (Domain model)
+        // public void CreateContractAsync_ThrowsBadRequestException_WhenTimePeriodForPayementOutOfRange()
+        // {
+        //     // Arrange
+        //     var dto = new CreateContractDTO
+        //     {
+        //         ClientId = 1,
+        //         ProductId = 1,
+        //         ContractLengthInYears = 1,
+        //         TimePeriodForPayement = 2  // Invalid value (less than 3)
+        //     };
+        //
+        //     var client = new Client { IdClient = dto.ClientId, Contracts = new System.Collections.Generic.List<Contract>(), Subscriptions = new System.Collections.Generic.List<Subscription>() };
+        //     var product = new Product { IdProduct = dto.ProductId, BasePrice = 100 };
+        //
+        //     _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.ClientId)).ReturnsAsync(client);
+        //     _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAllInfoAsync(dto.ClientId)).ReturnsAsync(client);
+        //     _mockProductRepository.Setup(r => r.GetProductAsync(dto.ProductId)).ReturnsAsync(product);
+        //     _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionsForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Subscription)null);
+        //     _mockContractRepository.Setup(r => r.GetActiveContractForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Contract)null);
+        //     _mockDiscountRepository.Setup(r => r.GetCurrentHighestDiscountAsync()).ReturnsAsync(new Discount { Percentage = 10 });
+        //
+        //     // Act & Assert
+        //     var ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
+        //     Assert.AreEqual("TimePeriod cannot be less then 3 or larger then 30", ex.Message);
+        //
+        //     // Arrange for value greater than 30
+        //     dto.TimePeriodForPayement = 31;  // Invalid value (greater than 30)
+        //
+        //     // Act & Assert
+        //     ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
+        //     Assert.AreEqual("TimePeriod cannot be less then 3 or larger then 30", ex.Message);
+        // }
         [Test]
         public async Task IssuePaymentForContractAsync_Success()
         {

@@ -44,8 +44,8 @@ public class ContractService : IContractService
         var contract = await _contractRepository.GetActiveContractForProductAsync(dto.ProductId,dto.ClientId);
         EnsureClientDoseNotHaveASubscriptionOrContractForThisProduct(subscirption,contract);
         
-        EnsureTimeRangeForPayementIsInBounderies(dto);
-        EnsureTimeRangeForSupportIsInBounderies(dto);
+        // EnsureTimeRangeForPayementIsInBounderies(dto); //Commented out because in Model (Domain model)
+        // EnsureTimeRangeForSupportIsInBounderies(dto); //Commented out because in Model (Domain model)
         DateTime StartDate = DateTime.Now;
         DateTime EndDatePayement = StartDate.AddDays(dto.TimePeriodForPayement);
         DateTime EndDateContract = StartDate.AddYears(dto.ContractLengthInYears);
@@ -139,7 +139,7 @@ public class ContractService : IContractService
         {
             throw new BadRequestExeption("Time has expired.");
         }
-    }
+    } 
     
     private void EnsurePaymentIsNotLargerThenAMountDue(decimal AmoutDue,decimal PaymentAmount)
     {
@@ -178,21 +178,21 @@ public class ContractService : IContractService
         }
     }
     
-    private void EnsureTimeRangeForPayementIsInBounderies(CreateContractDTO dto)
-    {
-        if (dto.TimePeriodForPayement < 3 || dto.TimePeriodForPayement > 30)
-        {
-            throw new BadRequestExeption("TimePeriod cannot be less then 3 or larger then 30");
-        }
-    }
+    // private void EnsureTimeRangeForPayementIsInBounderies(CreateContractDTO dto) //Commented out because in Model (Domain model)
+    // {
+    //     if (dto.TimePeriodForPayement < 3 || dto.TimePeriodForPayement > 30)
+    //     {
+    //         throw new BadRequestExeption("TimePeriod cannot be less then 3 or larger then 30");
+    //     }
+    // }
     
-    private void EnsureTimeRangeForSupportIsInBounderies(CreateContractDTO dto)
-    {
-        if (dto.AdditionalSupportTimeInYears > 3 || dto.AdditionalSupportTimeInYears < 0)
-        {
-            throw new BadRequestExeption("Support can only be [0,1,2,3] years");
-        }
-    }
+    // private void EnsureTimeRangeForSupportIsInBounderies(CreateContractDTO dto) //Commented out because in Model (Domain model)
+    // {
+    //     if (dto.AdditionalSupportTimeInYears > 3 || dto.AdditionalSupportTimeInYears < 0)
+    //     {
+    //         throw new BadRequestExeption("Support can only be [0,1,2,3] years");
+    //     }
+    // }
     
     private decimal IsClientAPreviousClient(Client client)
     {
