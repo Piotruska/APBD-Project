@@ -1,7 +1,8 @@
 using RevenueRecodnition.Api.Exeptions;
 using RevenueRecodnition.Api.Models;
 using RevenueRecodnition.Api.Modls;
-using RevenueRecodnition.Api.Repositories;
+using RevenueRecodnition.Api.Repositories.Interfaces;
+using RevenueRecodnition.Api.Services.Interfaces;
 using RevenueRecodnition.DataBase.Entities;
 
 namespace RevenueRecodnition.Api.Services;

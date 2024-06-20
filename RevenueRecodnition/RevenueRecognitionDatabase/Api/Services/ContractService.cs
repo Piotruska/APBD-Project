@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RevenueRecodnition.Api.Exeptions;
 using RevenueRecodnition.Api.Models;
-using RevenueRecodnition.Api.Repositories;
+using RevenueRecodnition.Api.Repositories.Interfaces;
+using RevenueRecodnition.Api.Services.Interfaces;
 using RevenueRecodnition.DataBase.Entities;
 
 namespace RevenueRecodnition.Api.Services;
@@ -34,13 +35,13 @@ public class ContractService : IContractService
         var client = await _clientRepository.GetClientWithoutSoftDeletedAsync(dto.ClientId);
         EnsureClientExists(client);
         client = await _clientRepository.GetClientWithoutSoftDeletedAllInfoAsync(dto.ClientId);
-        var product = await _productRepository.GetrProduct(dto.ProductId);
+        var product = await _productRepository.GetProductAsync(dto.ProductId);
         EnsureProductExists(product);
-        var discount = GetDiscountCalue(await _dicountRepository.GetCurrentHighestDiscount());
+        var discount = GetDiscountCalue(await _dicountRepository.GetCurrentHighestDiscountAsync());
         
 
-        var subscirption = await _subscriptionRepository.GetActiveSubscriptionForProductAsync(dto.ProductId,dto.ClientId);
-        var contract = await _contractRepository.GetActiveContractForProduct(dto.ProductId,dto.ClientId);
+        var subscirption = await _subscriptionRepository.GetActiveSubscriptionsForProductAsync(dto.ProductId,dto.ClientId);
+        var contract = await _contractRepository.GetActiveContractForProductAsync(dto.ProductId,dto.ClientId);
         EnsureClientDoseNotHaveASubscriptionOrContractForThisProduct(subscirption,contract);
         
         EnsureTimeRangeForPayementIsInBounderies(dto);
@@ -70,12 +71,12 @@ public class ContractService : IContractService
             IdProduct = product.IdProduct
         };
 
-        return await _contractRepository.AddContract(contractToAdd);
+        return await _contractRepository.AddContractAsync(contractToAdd);
     }
 
     public async Task IssuePayementForContractAsync(PaymentForContractDTO dto)
     {
-        var contract = await _contractRepository.GetContract(dto.contractID);
+        var contract = await _contractRepository.GetContractAsync(dto.contractID);
         EnsureContractExists(contract);
         EnsureContractIsNotSigned(contract);
         EnsurePaymentDateHasNotPassed(contract);
@@ -102,7 +103,7 @@ public class ContractService : IContractService
         var currentAmount = AmoutPayed + dto.Amount;
         if (currentAmount == ContractCost)
         {
-            await _contractRepository.SignContract(dto.contractID);
+            await _contractRepository.SignContractAsync(dto.contractID);
         }
     }
     

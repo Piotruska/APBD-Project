@@ -1,14 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RevenueRecodnition.Api.MiddleWares;
 using RevenueRecodnition.Api.Models;
-using RevenueRecodnition.Api.Services;
-
+using RevenueRecodnition.Api.Services.Interfaces;
 
 namespace RevenueRecodnition.Api.Controllers;
 
 [ApiController]
-[Route("api/user")]
+[Route("api/users")]
 public class UserController : ControllerBase
 {
     private IUserService _service;
@@ -19,19 +17,20 @@ public class UserController : ControllerBase
     }
 
 
-    [HttpPost("signup")]
+    [HttpPost]
     [AllowAnonymous]
-    public async Task<IActionResult> AddUser(AddUserDTO dto)
+    public async Task<IActionResult> AddUserAsync(AddUserDTO dto)
     {
         await _service.AddNewUserAsync(dto);
         return Ok();
     }
-    
-    [HttpDelete("RemoveUser")]
-    [Authorize(Policy = "AdminPolicy")]
-    public async Task<IActionResult> RemoveUser(string username)
+
+    [HttpDelete("{userId:int}")]
+
+[Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> RemoveUserAsync(int userId)
     {
-        await _service.RemoveUserAync(username);
+        await _service.RemoveUserAync(userId);
         return Ok();
     }
 

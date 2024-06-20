@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RevenueRecodnition.Api.Models;
 using RevenueRecodnition.Api.Modls;
-using RevenueRecodnition.Api.Services;
+using RevenueRecodnition.Api.Services.Interfaces;
 
 namespace RevenueRecodnition.Api.Controllers;
 
@@ -19,7 +19,7 @@ public class ClientController : ControllerBase
     }
 
     
-    [HttpPost("Individual")]
+    [HttpPost("individualClients")]
     public async Task<IActionResult> AddIndividualClientAsync(AddIndividualClientDTO dto)
     {
         await _service.AddIndividualClientAsync(dto);
@@ -27,14 +27,14 @@ public class ClientController : ControllerBase
     }
     
     
-    [HttpPost("Company")]
+    [HttpPost("companyClients")]
     public async Task<IActionResult> AddCompanyClientAsync(AddCompanyClientDTO dto)
     {
         await _service.AddCompanyClientAsync(dto);
         return NoContent();
     }
     
-    [HttpPut("Company/{CompanyClientId:int}")]
+    [HttpPut("companyClients/{CompanyClientId:int}")]
     [Authorize(Policy = "AdminPolicy")]
     public async Task<IActionResult> UpdateCompanyClientAsync(UpdateCompanyClientDto dto,int CompanyClientId)
     {
@@ -42,7 +42,7 @@ public class ClientController : ControllerBase
         return NoContent();
     }
     
-    [HttpPut("Individual/{IndividualClientId:int}")]
+    [HttpPut("individualClients/{IndividualClientId:int}")]
     [Authorize(Policy = "AdminPolicy")]
     public async Task<IActionResult> UpdateIndividualCLientAsync(UpdateIndividualClientDTO dto,int IndividualClientId)
     {
@@ -50,7 +50,7 @@ public class ClientController : ControllerBase
         return NoContent();
     }
     
-    [HttpDelete("Individual/{IndividualClientId:int}")]
+    [HttpDelete("individualClients/{IndividualClientId:int}")]
     [Authorize(Policy = "AdminPolicy")]
     public async Task<IActionResult> SoftDeleteIndividualCLientAsync(int IndividualClientId)
     {

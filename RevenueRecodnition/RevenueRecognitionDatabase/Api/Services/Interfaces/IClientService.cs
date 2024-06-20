@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using RevenueRecodnition.Api.Models;
 using RevenueRecodnition.Api.Modls;
 
-namespace RevenueRecodnition.Api.Services;
+namespace RevenueRecodnition.Api.Services.Interfaces;
 
 public interface IClientService
 {

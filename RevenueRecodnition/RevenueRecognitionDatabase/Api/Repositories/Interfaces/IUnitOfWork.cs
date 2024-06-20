@@ -1,4 +1,4 @@
-namespace RevenueRecodnition.Api.Repositories;
+namespace RevenueRecodnition.Api.Repositories.Interfaces;
 
 public interface IUnitOfWork
 {

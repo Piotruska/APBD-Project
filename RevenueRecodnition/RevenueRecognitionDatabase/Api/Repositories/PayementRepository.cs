@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RevenueRecodnition.DataBase.Context;
 using RevenueRecodnition.DataBase.Entities;
+using RevenueRecodnition.Api.Repositories.Interfaces;
 
 namespace RevenueRecodnition.Api.Repositories;
 

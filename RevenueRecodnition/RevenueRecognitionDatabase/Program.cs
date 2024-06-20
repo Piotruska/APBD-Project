@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using RevenueRecodnition.Api.MiddleWares;
 using RevenueRecodnition.Api.Repositories;
+using RevenueRecodnition.Api.Repositories.Interfaces;
 using RevenueRecodnition.Api.Services;
+using RevenueRecodnition.Api.Services.Interfaces;
 using RevenueRecodnition.DataBase.Context;
 using RevenueRecodnition.DataBase.Entities;
 
@@ -37,6 +39,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IContractService, ContractService>();
 builder.Services.AddScoped<IRevenueService, RevenueService>();
 builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 // Adding Controllers

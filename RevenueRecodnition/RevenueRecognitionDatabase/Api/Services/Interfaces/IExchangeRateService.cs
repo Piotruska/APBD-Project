@@ -1,4 +1,4 @@
-namespace RevenueRecodnition.Api.Services;
+namespace RevenueRecodnition.Api.Services.Interfaces;
 
 public interface IExchangeRateService
 {

@@ -1,8 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using RevenueRecodnition.Api.Exeptions;
 using RevenueRecodnition.Api.Models;
-using RevenueRecodnition.Api.Repositories;
-using RevenueRecodnition.DataBase.Context;
+using RevenueRecodnition.Api.Repositories.Interfaces;
+using RevenueRecodnition.Api.Services.Interfaces;
 using RevenueRecodnition.DataBase.Entities;
 
 namespace RevenueRecodnition.Api.Services;
@@ -34,7 +33,7 @@ public class RevenueService : IRevenueService
     
         if (requestDto.For == "company")
         {
-            var contracts = await _contractRepository.GetListOfSignedContracts();
+            var contracts = await _contractRepository.GetListOfSignedContractsAsync();
             foreach (var contract in contracts)
             {
                 totalRevenuePLN += contract.Price;
@@ -52,7 +51,7 @@ public class RevenueService : IRevenueService
         }
         else if (requestDto.For == "product" )
         {
-            var contracts = await _contractRepository.GetListOfSignedContractsForProduct(requestDto.ProductId);
+            var contracts = await _contractRepository.GetListOfSignedContractsForProductAsync(requestDto.ProductId);
             foreach (var contract in contracts)
             {
                 totalRevenuePLN  += contract.Price;
@@ -87,7 +86,7 @@ public class RevenueService : IRevenueService
     
         if (requestDto.For == "company")
         {
-            var contracts = await _contractRepository.GetListOfAllContractsNotPastDates();
+            var contracts = await _contractRepository.GetListOfAllContractsNotPastDatesAsync();
             foreach (var contract in contracts)
             {
                 totalRevenuePLN += contract.Price;
@@ -111,7 +110,7 @@ public class RevenueService : IRevenueService
         }
         else if (requestDto.For == "product")
         {
-            var contracts = await _contractRepository.GetListOfAllContractsNotPastDatesForProduct(requestDto.ProductId);
+            var contracts = await _contractRepository.GetListOfAllContractsNotPastDatesForProductAsync(requestDto.ProductId);
             foreach (var contract in contracts)
             {
                 totalRevenuePLN += contract.Price;

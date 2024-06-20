@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Moq;
-using NUnit.Framework;
 using RevenueRecodnition.Api.Exeptions;
 using RevenueRecodnition.Api.Models;
-using RevenueRecodnition.Api.Repositories;
+using RevenueRecodnition.Api.Repositories.Interfaces;
 using RevenueRecodnition.Api.Services;
+using RevenueRecodnition.Api.Services.Interfaces;
 using RevenueRecodnition.DataBase.Entities;
 
 namespace RevenueRecognitionDatabaseUnitTests
@@ -58,7 +56,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 new Subscription { Payments = new List<Payment> { new Payment { Amount = 700 } } }
             };
 
-            _mockContractRepository.Setup(r => r.GetListOfSignedContracts()).ReturnsAsync(contracts);
+            _mockContractRepository.Setup(r => r.GetListOfSignedContractsAsync()).ReturnsAsync(contracts);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsWithPayementsAsync()).ReturnsAsync(subscriptions);
 
             // Act
@@ -84,7 +82,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 new Subscription { Payments = new List<Payment> { new Payment { Amount = 700 } } }
             };
 
-            _mockContractRepository.Setup(r => r.GetListOfSignedContractsForProduct(requestDto.ProductId)).ReturnsAsync(contracts);
+            _mockContractRepository.Setup(r => r.GetListOfSignedContractsForProductAsync(requestDto.ProductId)).ReturnsAsync(contracts);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsWithPayementsForProductAsync(requestDto.ProductId)).ReturnsAsync(subscriptions);
 
             // Act
@@ -110,7 +108,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 new Subscription { Payments = new List<Payment> { new Payment { Amount = 700 } } }
             };
 
-            _mockContractRepository.Setup(r => r.GetListOfSignedContracts()).ReturnsAsync(contracts);
+            _mockContractRepository.Setup(r => r.GetListOfSignedContractsAsync()).ReturnsAsync(contracts);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsWithPayementsAsync()).ReturnsAsync(subscriptions);
             _mockExchangeRateService.Setup(s => s.GetExchangeRateAsync("USD")).ReturnsAsync(0.25m);
 
@@ -137,7 +135,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 new Subscription { Payments = new List<Payment> { new Payment { Amount = 700 } } }
             };
 
-            _mockContractRepository.Setup(r => r.GetListOfSignedContractsForProduct(requestDto.ProductId)).ReturnsAsync(contracts);
+            _mockContractRepository.Setup(r => r.GetListOfSignedContractsForProductAsync(requestDto.ProductId)).ReturnsAsync(contracts);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsWithPayementsForProductAsync(requestDto.ProductId)).ReturnsAsync(subscriptions);
             _mockExchangeRateService.Setup(s => s.GetExchangeRateAsync("USD")).ReturnsAsync(0.25m);
 
@@ -179,7 +177,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 new Subscription { Price = 400 }
             };
 
-            _mockContractRepository.Setup(r => r.GetListOfAllContractsNotPastDates()).ReturnsAsync(contracts);
+            _mockContractRepository.Setup(r => r.GetListOfAllContractsNotPastDatesAsync()).ReturnsAsync(contracts);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsWithPayementsAsync()).ReturnsAsync(subscriptions);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsNotCanceledAsync()).ReturnsAsync(notCanceledSubscriptions);
 
@@ -211,7 +209,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 new Subscription { Price = 400,IdProduct = 1 }
             };
 
-            _mockContractRepository.Setup(r => r.GetListOfAllContractsNotPastDatesForProduct(requestDto.ProductId)).ReturnsAsync(contracts);
+            _mockContractRepository.Setup(r => r.GetListOfAllContractsNotPastDatesForProductAsync(requestDto.ProductId)).ReturnsAsync(contracts);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsWithPayementsForProductAsync(requestDto.ProductId)).ReturnsAsync(subscriptions);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsForProductNotCanceledAsync(requestDto.ProductId)).ReturnsAsync(notCanceledSubscriptions);
 
@@ -243,7 +241,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 new Subscription { Price = 400 }
             };
 
-            _mockContractRepository.Setup(r => r.GetListOfAllContractsNotPastDates()).ReturnsAsync(contracts);
+            _mockContractRepository.Setup(r => r.GetListOfAllContractsNotPastDatesAsync()).ReturnsAsync(contracts);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsWithPayementsAsync()).ReturnsAsync(subscriptions);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsNotCanceledAsync()).ReturnsAsync(notCanceledSubscriptions);
             _mockExchangeRateService.Setup(s => s.GetExchangeRateAsync("USD")).ReturnsAsync(0.25m);
@@ -277,7 +275,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 new Subscription { Price = 400 }
             };
 
-            _mockContractRepository.Setup(r => r.GetListOfAllContractsNotPastDatesForProduct(requestDto.ProductId)).ReturnsAsync(contracts);
+            _mockContractRepository.Setup(r => r.GetListOfAllContractsNotPastDatesForProductAsync(requestDto.ProductId)).ReturnsAsync(contracts);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsWithPayementsForProductAsync(requestDto.ProductId)).ReturnsAsync(subscriptions);
             _mockSubscriptionRepository.Setup(r => r.GetListOfSubscriptionsForProductNotCanceledAsync(requestDto.ProductId)).ReturnsAsync(notCanceledSubscriptions);
             _mockExchangeRateService.Setup(s => s.GetExchangeRateAsync("USD")).ReturnsAsync(0.25m);

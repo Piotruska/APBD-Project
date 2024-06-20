@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RevenueRecodnition.Api.Models;
-using RevenueRecodnition.Api.Services;
+
+using RevenueRecodnition.Api.Services.Interfaces;
 
 namespace RevenueRecodnition.Api.Controllers;
 
 [ApiController]
-[Route("api/revenue")]
+[Route("api/revenues")]
 [Authorize]
 public class RevenueController : ControllerBase
 {

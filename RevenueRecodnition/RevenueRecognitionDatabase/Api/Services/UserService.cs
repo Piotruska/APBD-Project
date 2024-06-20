@@ -1,7 +1,8 @@
 using RevenueRecodnition.Api.Exeptions;
 using RevenueRecodnition.Api.Helpers;
 using RevenueRecodnition.Api.Models;
-using RevenueRecodnition.Api.Repositories;
+using RevenueRecodnition.Api.Repositories.Interfaces;
+using RevenueRecodnition.Api.Services.Interfaces;
 using RevenueRecodnition.DataBase.Entities;
 
 namespace RevenueRecodnition.Api.Services;
@@ -34,9 +35,9 @@ public class UserService : IUserService
         await _userRepository.AddNewUserAsync(userToAdd);
     }
 
-    public async Task RemoveUserAync(string username)
+    public async Task RemoveUserAync(int userId)
     {
-        var user = await _userRepository.GetUserAsync(username);
+        var user = await _userRepository.GetUserAsync(userId);
         EnsureUserExists(user);
         await _userRepository.DeleteUserAsync(user);
     }
@@ -44,7 +45,7 @@ public class UserService : IUserService
     {
         if (user == null)
         {
-            throw new BadRequestExeption($"User with username '{user.Username}' dose not exists.");
+            throw new BadRequestExeption($"User dose not exists.");
         }
     }
     private void EnsureUsernameDoesNotExist(User? user)

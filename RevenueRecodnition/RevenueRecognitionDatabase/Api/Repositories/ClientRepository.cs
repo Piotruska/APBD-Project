@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RevenueRecodnition.Api.Models;
 using RevenueRecodnition.Api.Modls;
+using RevenueRecodnition.Api.Repositories.Interfaces;
 using RevenueRecodnition.DataBase.Context;
 using RevenueRecodnition.DataBase.Entities;
 

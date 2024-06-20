@@ -1,4 +1,5 @@
 using RevenueRecodnition.DataBase.Context;
+using RevenueRecodnition.Api.Repositories.Interfaces;
 
 namespace RevenueRecodnition.Api.Repositories;
 

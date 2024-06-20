@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RevenueRecodnition.DataBase.Context;
 using RevenueRecodnition.DataBase.Entities;
+using RevenueRecodnition.Api.Repositories.Interfaces;
 
 namespace RevenueRecodnition.Api.Repositories;
 
@@ -13,7 +14,7 @@ public class ContractRepository : IContracrRepository
         _context = context;
     }
 
-    public async Task<Contract?> GetActiveContractForProduct(int productId,int clientId)
+    public async Task<Contract?> GetActiveContractForProductAsync(int productId,int clientId)
     {
         return await _context.Contracts
             .Where(x => x.IdClient == clientId)
@@ -22,7 +23,7 @@ public class ContractRepository : IContracrRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<List<Contract>> GetListOfSignedContracts()
+    public async Task<List<Contract>> GetListOfSignedContractsAsync()
     {
         var test = await _context.Contracts.FindAsync(1);
         
@@ -33,39 +34,39 @@ public class ContractRepository : IContracrRepository
         return list;
     }
 
-    public async Task<List<Contract>> GetListOfSignedContractsForProduct(int productId)
+    public async Task<List<Contract>> GetListOfSignedContractsForProductAsync(int productId)
     {
         return await _context.Contracts
             .Where(x => x.IsSigned && x.IdProduct == productId)
             .ToListAsync();
     }
 
-    public async Task<List<Contract>> GetListOfAllContractsNotPastDates()
+    public async Task<List<Contract>> GetListOfAllContractsNotPastDatesAsync()
     {
         return await _context.Contracts
             .Where(x => !(x.EndDatePayement < DateTime.Now) || x.IsSigned).ToListAsync();
     }
 
-    public async Task<List<Contract>> GetListOfAllContractsNotPastDatesForProduct(int productId)
+    public async Task<List<Contract>> GetListOfAllContractsNotPastDatesForProductAsync(int productId)
     {
         return await _context.Contracts
             .Where(x=>x.IdProduct == productId)
             .Where(x => !(x.EndDatePayement < DateTime.Now) || x.IsSigned).ToListAsync();
     }
 
-    public async Task<int> AddContract(Contract contract)
+    public async Task<int> AddContractAsync(Contract contract)
     {
         await _context.Contracts.AddAsync(contract);
         await _context.SaveChangesAsync();
         return contract.IdContract;
     }
 
-    public async Task<Contract?> GetContract(int contractId)
+    public async Task<Contract?> GetContractAsync(int contractId)
     {
         return await _context.Contracts.FindAsync(contractId);
     }
 
-    public async Task SignContract(int contractId)
+    public async Task SignContractAsync(int contractId)
     {
         var contract = await _context.Contracts.FindAsync(contractId);
         contract.IsSigned = true;

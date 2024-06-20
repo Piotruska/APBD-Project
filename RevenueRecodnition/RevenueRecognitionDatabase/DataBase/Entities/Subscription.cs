@@ -4,7 +4,7 @@ public class Subscription
 {
     public int IdSubscription { get; set; }
     public string Name { get; set; }
-    public string RenewalPeriod { get; set; }
+    public int RenewalPeriod { get; set; } // in months
     public decimal Price { get; set; }
     public DateTime StartDateRenewalPayement { get; set; }
     public DateTime EndDateRenewalPayement { get; set; }

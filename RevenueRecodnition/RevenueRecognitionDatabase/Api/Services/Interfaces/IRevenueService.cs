@@ -1,6 +1,6 @@
 using RevenueRecodnition.Api.Models;
 
-namespace RevenueRecodnition.Api.Services;
+namespace RevenueRecodnition.Api.Services.Interfaces;
 
 public interface IRevenueService
 {

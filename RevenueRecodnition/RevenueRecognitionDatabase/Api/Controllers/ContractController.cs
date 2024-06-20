@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RevenueRecodnition.Api.Models;
-using RevenueRecodnition.Api.Services;
+using RevenueRecodnition.Api.Services.Interfaces;
 
 namespace RevenueRecodnition.Api.Controllers;
 
 [ApiController]
-[Route("api/contract")]
+[Route("api/contracts")]
 [Authorize]
 public class ContractController : ControllerBase
 {
@@ -26,7 +26,7 @@ public class ContractController : ControllerBase
     }
     
     
-    [HttpPost("Payement")]
+    [HttpPost("payements")]
     public async Task<IActionResult> IssuePayementForContractAsync(PaymentForContractDTO dto)
     {
         await _service.IssuePayementForContractAsync(dto);

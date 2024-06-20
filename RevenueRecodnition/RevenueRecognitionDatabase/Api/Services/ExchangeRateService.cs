@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using RevenueRecodnition.Api.Exeptions;
+using RevenueRecodnition.Api.Services.Interfaces;
 
 namespace RevenueRecodnition.Api.Services;
 using System.Net.Http;

@@ -2,7 +2,7 @@ using RevenueRecodnition.Api.Models;
 using RevenueRecodnition.Api.Modls;
 using RevenueRecodnition.DataBase.Entities;
 
-namespace RevenueRecodnition.Api.Repositories;
+namespace RevenueRecodnition.Api.Repositories.Interfaces;
 
 public interface IClientRepository
 {

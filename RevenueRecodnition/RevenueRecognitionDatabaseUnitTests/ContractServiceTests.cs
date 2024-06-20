@@ -1,12 +1,10 @@
 using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Moq;
-using NUnit.Framework;
 using RevenueRecodnition.Api.Exeptions;
 using RevenueRecodnition.Api.Models;
-using RevenueRecodnition.Api.Repositories;
+using RevenueRecodnition.Api.Repositories.Interfaces;
 using RevenueRecodnition.Api.Services;
+using RevenueRecodnition.Api.Services.Interfaces;
 using RevenueRecodnition.DataBase.Entities;
 
 namespace RevenueRecognitionDatabaseUnitTests
@@ -76,11 +74,11 @@ namespace RevenueRecognitionDatabaseUnitTests
 
             _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.ClientId)).ReturnsAsync(client);
             _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAllInfoAsync(dto.ClientId)).ReturnsAsync(client);
-            _mockProductRepository.Setup(r => r.GetrProduct(dto.ProductId)).ReturnsAsync(product);
-            _mockDiscountRepository.Setup(r => r.GetCurrentHighestDiscount()).ReturnsAsync(discount);
-            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Subscription)null);
-            _mockContractRepository.Setup(r => r.GetActiveContractForProduct(dto.ProductId, dto.ClientId)).ReturnsAsync((Contract)null);
-            _mockContractRepository.Setup(r => r.AddContract(It.IsAny<Contract>())).ReturnsAsync(1);
+            _mockProductRepository.Setup(r => r.GetProductAsync(dto.ProductId)).ReturnsAsync(product);
+            _mockDiscountRepository.Setup(r => r.GetCurrentHighestDiscountAsync()).ReturnsAsync(discount);
+            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionsForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Subscription)null);
+            _mockContractRepository.Setup(r => r.GetActiveContractForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Contract)null);
+            _mockContractRepository.Setup(r => r.AddContractAsync(It.IsAny<Contract>())).ReturnsAsync(1);
 
             // Act
             var result = await _contractService.CreateContractAsync(dto);
@@ -111,7 +109,7 @@ namespace RevenueRecognitionDatabaseUnitTests
 
             _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.ClientId)).ReturnsAsync(client);
             _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAllInfoAsync(dto.ClientId)).ReturnsAsync(client);
-            _mockProductRepository.Setup(r => r.GetrProduct(dto.ProductId)).ReturnsAsync((Product)null);
+            _mockProductRepository.Setup(r => r.GetProductAsync(dto.ProductId)).ReturnsAsync((Product)null);
 
             // Act & Assert
             Assert.ThrowsAsync<NotFoundExeption>(async () => await _contractService.CreateContractAsync(dto));
@@ -131,9 +129,9 @@ namespace RevenueRecognitionDatabaseUnitTests
 
             _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.ClientId)).ReturnsAsync(client);
             _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAllInfoAsync(dto.ClientId)).ReturnsAsync(client);
-            _mockProductRepository.Setup(r => r.GetrProduct(dto.ProductId)).ReturnsAsync(product);
-            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync(subscription);
-            _mockContractRepository.Setup(r => r.GetActiveContractForProduct(dto.ProductId, dto.ClientId)).ReturnsAsync(contract);
+            _mockProductRepository.Setup(r => r.GetProductAsync(dto.ProductId)).ReturnsAsync(product);
+            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionsForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync(subscription);
+            _mockContractRepository.Setup(r => r.GetActiveContractForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync(contract);
 
             // Act & Assert
             Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
@@ -157,10 +155,10 @@ namespace RevenueRecognitionDatabaseUnitTests
 
             _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.ClientId)).ReturnsAsync(client);
             _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAllInfoAsync(dto.ClientId)).ReturnsAsync(client);
-            _mockProductRepository.Setup(r => r.GetrProduct(dto.ProductId)).ReturnsAsync(product);
-            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Subscription)null);
-            _mockContractRepository.Setup(r => r.GetActiveContractForProduct(dto.ProductId, dto.ClientId)).ReturnsAsync((Contract)null);
-            _mockDiscountRepository.Setup(r => r.GetCurrentHighestDiscount()).ReturnsAsync(new Discount { Percentage = 10 });
+            _mockProductRepository.Setup(r => r.GetProductAsync(dto.ProductId)).ReturnsAsync(product);
+            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionsForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Subscription)null);
+            _mockContractRepository.Setup(r => r.GetActiveContractForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Contract)null);
+            _mockDiscountRepository.Setup(r => r.GetCurrentHighestDiscountAsync()).ReturnsAsync(new Discount { Percentage = 10 });
 
             // Act & Assert
             var ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
@@ -191,10 +189,10 @@ namespace RevenueRecognitionDatabaseUnitTests
 
             _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAsync(dto.ClientId)).ReturnsAsync(client);
             _mockClientRepository.Setup(r => r.GetClientWithoutSoftDeletedAllInfoAsync(dto.ClientId)).ReturnsAsync(client);
-            _mockProductRepository.Setup(r => r.GetrProduct(dto.ProductId)).ReturnsAsync(product);
-            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Subscription)null);
-            _mockContractRepository.Setup(r => r.GetActiveContractForProduct(dto.ProductId, dto.ClientId)).ReturnsAsync((Contract)null);
-            _mockDiscountRepository.Setup(r => r.GetCurrentHighestDiscount()).ReturnsAsync(new Discount { Percentage = 10 });
+            _mockProductRepository.Setup(r => r.GetProductAsync(dto.ProductId)).ReturnsAsync(product);
+            _mockSubscriptionRepository.Setup(r => r.GetActiveSubscriptionsForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Subscription)null);
+            _mockContractRepository.Setup(r => r.GetActiveContractForProductAsync(dto.ProductId, dto.ClientId)).ReturnsAsync((Contract)null);
+            _mockDiscountRepository.Setup(r => r.GetCurrentHighestDiscountAsync()).ReturnsAsync(new Discount { Percentage = 10 });
 
             // Act & Assert
             var ex = Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.CreateContractAsync(dto));
@@ -230,17 +228,17 @@ namespace RevenueRecognitionDatabaseUnitTests
                 new Payment { Amount = 500 }
             };
 
-            _mockContractRepository.Setup(r => r.GetContract(dto.contractID)).ReturnsAsync(contract);
+            _mockContractRepository.Setup(r => r.GetContractAsync(dto.contractID)).ReturnsAsync(contract);
             _mockPaymentRepository.Setup(r => r.GetPayementsForContractAsync(dto.contractID)).ReturnsAsync(payments);
             _mockPaymentRepository.Setup(r => r.AddPaymentAsync(It.IsAny<Payment>())).Returns(Task.CompletedTask);
-            _mockContractRepository.Setup(r => r.SignContract(dto.contractID)).Returns(Task.CompletedTask);
+            _mockContractRepository.Setup(r => r.SignContractAsync(dto.contractID)).Returns(Task.CompletedTask);
 
             // Act
             await _contractService.IssuePayementForContractAsync(dto);
 
             // Assert
             _mockPaymentRepository.Verify(r => r.AddPaymentAsync(It.IsAny<Payment>()), Times.Once);
-            _mockContractRepository.Verify(r => r.SignContract(dto.contractID), Times.Once);
+            _mockContractRepository.Verify(r => r.SignContractAsync(dto.contractID), Times.Once);
         }
 
         [Test]
@@ -249,7 +247,7 @@ namespace RevenueRecognitionDatabaseUnitTests
             // Arrange
             var dto = new PaymentForContractDTO { contractID = 1 };
 
-            _mockContractRepository.Setup(r => r.GetContract(dto.contractID)).ReturnsAsync((Contract)null);
+            _mockContractRepository.Setup(r => r.GetContractAsync(dto.contractID)).ReturnsAsync((Contract)null);
 
             // Act & Assert
             Assert.ThrowsAsync<NotFoundExeption>(async () => await _contractService.IssuePayementForContractAsync(dto));
@@ -267,7 +265,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 IsSigned = true
             };
 
-            _mockContractRepository.Setup(r => r.GetContract(dto.contractID)).ReturnsAsync(contract);
+            _mockContractRepository.Setup(r => r.GetContractAsync(dto.contractID)).ReturnsAsync(contract);
 
             // Act & Assert
             Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.IssuePayementForContractAsync(dto));
@@ -285,7 +283,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 EndDatePayement = DateTime.Now.AddDays(-1)
             };
 
-            _mockContractRepository.Setup(r => r.GetContract(dto.contractID)).ReturnsAsync(contract);
+            _mockContractRepository.Setup(r => r.GetContractAsync(dto.contractID)).ReturnsAsync(contract);
 
             // Act & Assert
             Assert.ThrowsAsync<BadRequestExeption>(async () => await _contractService.IssuePayementForContractAsync(dto));
@@ -313,7 +311,7 @@ namespace RevenueRecognitionDatabaseUnitTests
                 new Payment { Amount = 500 }
             };
 
-            _mockContractRepository.Setup(r => r.GetContract(dto.contractID)).ReturnsAsync(contract);
+            _mockContractRepository.Setup(r => r.GetContractAsync(dto.contractID)).ReturnsAsync(contract);
             _mockPaymentRepository.Setup(r => r.GetPayementsForContractAsync(dto.contractID)).ReturnsAsync(payments);
 
             // Act & Assert

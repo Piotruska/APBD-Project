@@ -1,11 +1,9 @@
 using System;
-using System.Threading.Tasks;
 using Moq;
-using NUnit.Framework;
 using RevenueRecodnition.Api.Exeptions;
 using RevenueRecodnition.Api.Models;
 using RevenueRecodnition.Api.Modls;
-using RevenueRecodnition.Api.Repositories;
+using RevenueRecodnition.Api.Repositories.Interfaces;
 using RevenueRecodnition.Api.Services;
 using RevenueRecodnition.DataBase.Entities;
 
