@@ -11,7 +11,7 @@ namespace RevenueRecodnition.Api.Controllers;
 [Authorize]
 public class RevenueController : ControllerBase
 {
-    private IRevenueService _service;
+    private readonly IRevenueService _service;
 
     public RevenueController(IRevenueService service)
     {

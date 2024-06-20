@@ -7,7 +7,7 @@ namespace RevenueRecodnition.Api.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private RRConext _context;
+    private readonly RRConext _context;
 
     public UserRepository(RRConext context)
     {

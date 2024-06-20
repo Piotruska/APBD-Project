@@ -14,9 +14,7 @@ namespace RevenueRecognitionDatabaseUnitTests
     [TestFixture]
     public class SubscriptionServiceTests
     {
-        private Mock<IExchangeRateService> _mockExchangeRateService;
         private Mock<IClientRepository> _mockClientRepository;
-        private Mock<IContracrRepository> _mockContractRepository;
         private Mock<IProductRepository> _mockProductRepository;
         private Mock<IDicountRepository> _mockDiscountRepository;
         private Mock<ISubscriptionRepository> _mockSubscriptionRepository;
@@ -27,9 +25,7 @@ namespace RevenueRecognitionDatabaseUnitTests
         [SetUp]
         public void Setup()
         {
-            _mockExchangeRateService = new Mock<IExchangeRateService>();
             _mockClientRepository = new Mock<IClientRepository>();
-            _mockContractRepository = new Mock<IContracrRepository>();
             _mockProductRepository = new Mock<IProductRepository>();
             _mockDiscountRepository = new Mock<IDicountRepository>();
             _mockSubscriptionRepository = new Mock<ISubscriptionRepository>();
@@ -37,9 +33,7 @@ namespace RevenueRecognitionDatabaseUnitTests
             _mockUnitOfWork = new Mock<IUnitOfWork>();
 
             _subscriptionService = new SubscriptionService(
-                _mockExchangeRateService.Object,
                 _mockClientRepository.Object,
-                _mockContractRepository.Object,
                 _mockProductRepository.Object,
                 _mockDiscountRepository.Object,
                 _mockSubscriptionRepository.Object,

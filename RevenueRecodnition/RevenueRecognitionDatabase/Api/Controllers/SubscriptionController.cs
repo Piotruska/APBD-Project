@@ -10,7 +10,7 @@ namespace RevenueRecodnition.Api.Controllers;
 [Authorize]
 public class SubscriptionController : ControllerBase
 {
-    private ISubscriptionService _subscriptionService;
+    private readonly ISubscriptionService _subscriptionService;
 
     public SubscriptionController(ISubscriptionService subscriptionService)
     {

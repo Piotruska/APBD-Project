@@ -7,7 +7,7 @@ namespace RevenueRecodnition.Api.Repositories;
 
 public class ContractRepository : IContracrRepository
 {
-    private RRConext _context;
+    private readonly RRConext _context;
 
     public ContractRepository(RRConext context)
     {

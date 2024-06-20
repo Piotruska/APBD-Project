@@ -9,7 +9,7 @@ namespace RevenueRecodnition.Api.Repositories;
 
 public class ClientRepository : IClientRepository
 {
-    private RRConext _context;
+    private readonly RRConext _context;
 
     public ClientRepository(RRConext context)
     {

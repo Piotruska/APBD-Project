@@ -7,7 +7,7 @@ namespace RevenueRecodnition.Api.Repositories;
 
 public class PayementRepository : IPayementRepository
 {
-    private RRConext _context;
+    private readonly RRConext _context;
 
     public PayementRepository(RRConext context)
     {

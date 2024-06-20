@@ -24,7 +24,6 @@ namespace RevenueRecognitionDatabaseUnitTests
         [SetUp]
         public void Setup()
         {
-            _mockExchangeRateService = new Mock<IExchangeRateService>();
             _mockClientRepository = new Mock<IClientRepository>();
             _mockContractRepository = new Mock<IContracrRepository>();
             _mockProductRepository = new Mock<IProductRepository>();
@@ -32,7 +31,6 @@ namespace RevenueRecognitionDatabaseUnitTests
             _mockSubscriptionRepository = new Mock<ISubscriptionRepository>();
             _mockPaymentRepository = new Mock<IPayementRepository>();
             _contractService = new ContractService(
-                _mockExchangeRateService.Object,
                 _mockClientRepository.Object,
                 _mockContractRepository.Object,
                 _mockProductRepository.Object,

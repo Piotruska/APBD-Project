@@ -7,7 +7,7 @@ namespace RevenueRecodnition.Api.Repositories;
 
 public class DiscountRepository : IDicountRepository
 {
-    private RRConext _context;
+    private readonly RRConext _context;
 
     public DiscountRepository(RRConext context)
     {

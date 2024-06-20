@@ -9,20 +9,16 @@ namespace RevenueRecodnition.Api.Services;
 
 public class SubscriptionService : ISubscriptionService
 {
-    private readonly IExchangeRateService _exchangeRateService;
-    private IClientRepository _clientRepository;
-    private IContracrRepository _contractRepository;
-    private IProductRepository _productRepository;
-    private IDicountRepository _dicountRepository;
-    private ISubscriptionRepository _subscriptionRepository;
-    private IPayementRepository _payementRepository;
+    private readonly IClientRepository _clientRepository;
+    private readonly IProductRepository _productRepository;
+    private readonly IDicountRepository _dicountRepository;
+    private readonly ISubscriptionRepository _subscriptionRepository;
+    private readonly IPayementRepository _payementRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public SubscriptionService(IExchangeRateService exchangeRateService, IClientRepository clientRepository, IContracrRepository contractRepository, IProductRepository productRepository, IDicountRepository dicountRepository, ISubscriptionRepository subscriptionRepository, IPayementRepository payementRepository, IUnitOfWork unitOfWork)
+    public SubscriptionService( IClientRepository clientRepository, IProductRepository productRepository, IDicountRepository dicountRepository, ISubscriptionRepository subscriptionRepository, IPayementRepository payementRepository, IUnitOfWork unitOfWork)
     {
-        _exchangeRateService = exchangeRateService;
         _clientRepository = clientRepository;
-        _contractRepository = contractRepository;
         _productRepository = productRepository;
         _dicountRepository = dicountRepository;
         _subscriptionRepository = subscriptionRepository;

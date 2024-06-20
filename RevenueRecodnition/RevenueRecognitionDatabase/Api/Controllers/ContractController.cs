@@ -10,7 +10,7 @@ namespace RevenueRecodnition.Api.Controllers;
 [Authorize]
 public class ContractController : ControllerBase
 {
-    private IContractService _service;
+    private readonly IContractService _service;
 
     public ContractController(IContractService service)
     {

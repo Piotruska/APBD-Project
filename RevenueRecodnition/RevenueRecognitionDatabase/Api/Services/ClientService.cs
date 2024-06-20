@@ -9,8 +9,8 @@ namespace RevenueRecodnition.Api.Services;
 
 public class ClientService : IClientService
 {
-    private IClientRepository _clientRepository;
-    private IUnitOfWork _unitOfWork;
+    private readonly IClientRepository _clientRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
     public ClientService(IClientRepository clientRepository, IUnitOfWork unitOfWork)
     {

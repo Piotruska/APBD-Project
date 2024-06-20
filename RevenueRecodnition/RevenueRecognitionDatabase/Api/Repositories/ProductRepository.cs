@@ -6,7 +6,7 @@ namespace RevenueRecodnition.Api.Repositories;
 
 public class ProductRepository : IProductRepository
 {
-    private RRConext _context;
+    private readonly RRConext _context;
 
     public ProductRepository(RRConext context)
     {

@@ -9,22 +9,14 @@ namespace RevenueRecodnition.Api.Services;
 public class RevenueService : IRevenueService
 {
     private readonly IExchangeRateService _exchangeRateService;
-    private IClientRepository _clientRepository;
-    private IContracrRepository _contractRepository;
-    private IProductRepository _productRepository;
-    private IDicountRepository _dicountRepository;
-    private ISubscriptionRepository _subscriptionRepository;
-    private IPayementRepository _payementRepository;
+    private readonly IContracrRepository _contractRepository;
+    private readonly ISubscriptionRepository _subscriptionRepository;
 
-    public RevenueService(IExchangeRateService exchangeRateService,IClientRepository clientRepository, IContracrRepository contractRepository, IProductRepository productRepository, IDicountRepository dicountRepository, ISubscriptionRepository subscriptionRepository, IPayementRepository payementRepository)
+    public RevenueService(IExchangeRateService exchangeRateService, IContracrRepository contractRepository, ISubscriptionRepository subscriptionRepository)
     {
         _exchangeRateService = exchangeRateService;
-        _clientRepository = clientRepository;
         _contractRepository = contractRepository;
-        _productRepository = productRepository;
-        _dicountRepository = dicountRepository;
         _subscriptionRepository = subscriptionRepository;
-        _payementRepository = payementRepository;
     }
 
     public async Task<decimal> CalculateCurrentRevenueAsync(RevenueCalculationRequestDTO requestDto)

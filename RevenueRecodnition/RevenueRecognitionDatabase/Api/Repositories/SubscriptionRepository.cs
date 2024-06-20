@@ -7,7 +7,7 @@ namespace RevenueRecodnition.Api.Repositories;
 
 public class SubscriptionRepository : ISubscriptionRepository
 {
-    private RRConext _context;
+    private readonly RRConext _context;
 
     public SubscriptionRepository(RRConext context)
     {
